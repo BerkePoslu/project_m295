@@ -4,7 +4,7 @@
 
 Stellen Sie sicher, dass Sie die folgenden Voraussetzungen erfüllen, bevor Sie den Server starten:
 
-- Node.js ist installiert (Version 12 oder höher)
+- Node.js ist installiert
 - Alle Abhängigkeiten sind installiert (Sie können `npm install` ausführen, um sie zu installieren)
 
 ## Installation
@@ -29,4 +29,4 @@ Stellen Sie sicher, dass Sie die folgenden Voraussetzungen erfüllen, bevor Sie 
    node .\src\server.js
    ```
 
-   Dadurch wird der `server.js`-Server gestartet und er lauscht auf dem Standardport 3000 im localhost.
+   Dadurch wird der `server.js`-Server gestartet und er ist auf dem Standardport 3000 im localhost.

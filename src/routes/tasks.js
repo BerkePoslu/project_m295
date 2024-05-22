@@ -35,12 +35,15 @@ router.get("/tasks/:id", (req, res) => {
   }
 
   console.log("Get Task successful");
-  res.setHeader("Content-Type", "application/json").send(findArray);
+  res.setHeader("Content-Type", "application/json").status(200).send(findArray);
 });
 
 router.post("/tasks", (req, res) => {
   // #swagger.summary = "Create task and add it to tasks.json and return it as JSON";
   // #swagger.tags = ["Tasks"]
+  // #swagger.parameters['title'] = { description: "Title of the task", required: true }
+  // #swagger.parameters['description'] = { description: "Description of the task", required: false }
+  // #swagger.parameters['doneAt'] = { description: "Date when the task was done", required: false }
   // #swagger.description = "This route creates a task and adds it to the tasks.json file. If the user is not logged in, a 401 status code is returned."
   if (!req.session.user) {
     console.log("Post Task failed: Not logged in");
@@ -61,6 +64,14 @@ router.post("/tasks", (req, res) => {
   if (!title) {
     console.log("Post Task failed: Title is required");
     return res.sendStatus(422);
+  }
+
+  if (!description) {
+    description = "";
+  }
+
+  if (!doneAt) {
+    doneAt = null;
   }
 
   const allowedFields = ["title", "description", "doneAt"];
@@ -106,10 +117,16 @@ router.post("/tasks", (req, res) => {
 router.put("/tasks/:id", (req, res) => {
   // #swagger.summary = "Update task by id from tasks.json and return it as JSON";
   // #swagger.tags = ["Tasks"]
+  // #swagger.parameters['id'] = { description: "Id of the task", required: true }
   // #swagger.description = "This route updates a task by its id from the tasks.json file. If the user is not logged in, a 401 status code is returned."
   if (!req.session.user) {
     console.log("Put Task failed: Not logged in");
     return res.sendStatus(401);
+  }
+
+  if (!req.body.title) {
+    console.log("Put Task failed: Title is required");
+    return res.sendStatus(422);
   }
 
   const { id } = req.params;
@@ -121,6 +138,7 @@ router.put("/tasks/:id", (req, res) => {
     const additionalFields = Object.keys(req.body).filter(
       (key) => !allowedFields.includes(key)
     );
+
     if (additionalFields.length > 0) {
       console.log("Put Task failed: Prohibited fields found");
       return res.sendStatus(422);
@@ -158,11 +176,12 @@ router.put("/tasks/:id", (req, res) => {
 
 router.delete("/tasks/:id", (req, res) => {
   // #swagger.summary = "Delete task by id from tasks.json and return it as JSON";
-  // #swagger.tags = ["Lends"]
-  // #swagger.description = "This route deletes a lend by its id from the lend.json file. If the user is not logged in, a 401 status code is returned."
+  // #swagger.tags = ["Tasks"];
+  // #swagger.parameters['id'] = { description: "Id of the task", required: true };
+  // #swagger.description = "This route deletes a task by adding a timestamp into doneAt to the task in the tasks.json file. If the user is not logged in, a 401 status code is returned."
   if (!req.session.user) {
     console.log("Delete Task failed: Not logged in");
-    return res.status(401).json({ message: "Not logged in" });
+    return res.status(401);
   }
 
   const { id } = req.params;

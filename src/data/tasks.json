@@ -2,9 +2,9 @@
   {
     "id": "8be6afcd-6dab-4cb4-8330-b0b0c5b3a154",
     "title": "very changed task with put",
-    "description": "changed description of Task 8",
+    "description": "description of Task 8",
     "doneAt": null,
-    "creator": "berke@bbw.ch"
+    "creator": "berke@postman.com"
   },
   {
     "id": "f1447422-14d4-4fe8-8656-24edfe28552c",
@@ -33,5 +33,19 @@
     "description": "test2",
     "doneAt": "22.5.2024, 13:12:55",
     "creator": "berke@bbw.ch"
+  },
+  {
+    "id": "a3e2e4c7-2c6f-4139-a980-a0e1df2daa5f",
+    "title": "Post in Postman",
+    "description": "This task was posted in Postman",
+    "doneAt": "22.5.2024, 14:39:30",
+    "creator": "berke@postman.com"
+  },
+  {
+    "id": "26853eb9-9a54-4e1c-9f16-939dfb951d30",
+    "title": "Put and Post with Swagger Docs",
+    "description": "This Task was posted and put with Swagger Docs",
+    "creator": "berke@website.test.com",
+    "doneAt": "22.5.2024, 14:43:27"
   }
 ]

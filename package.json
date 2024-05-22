@@ -6,7 +6,9 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "nodejs": "^0.0.0",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
