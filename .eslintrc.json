@@ -6,7 +6,7 @@
   },
   "extends": ["xo"],
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": 2018
   },
   "rules": {}
 }
