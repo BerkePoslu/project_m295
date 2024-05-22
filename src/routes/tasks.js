@@ -173,12 +173,13 @@ router.delete("/tasks/:id", (req, res) => {
     return res.status(404).send("Task not found");
   }
 
-  const date = new Date();
-  const formattedDate = date.toISOString();
+  const date = new Date().toLocaleString("de-CH", {
+    timeZone: "Europe/Zurich",
+  });
+  findArray.doneAt = date;
 
-  findArray.doneAt = formattedDate;
-
-  tasks = findArray;
+  tasks = tasks.filter((element) => element.id !== id);
+  tasks.push(findArray);
 
   fs.writeFile(
     path.join(__dirname, "../data/tasks.json"),
