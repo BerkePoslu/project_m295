@@ -13,6 +13,7 @@ router.get("/tasks", (req, res) => {
     console.log("Get Tasks failed: Not logged in");
     return res.sendStatus(401);
   }
+
   console.log("Get Tasks successful");
   res.setHeader("Content-Type", "application/json").status(200).send(tasks);
 });
@@ -59,7 +60,7 @@ router.post("/tasks", (req, res) => {
 
   const creator = req.session.user;
 
-  const { title, description, doneAt } = req.body;
+  let { title, description, doneAt } = req.body;
 
   if (!title) {
     console.log("Post Task failed: Title is required");
@@ -105,6 +106,7 @@ router.post("/tasks", (req, res) => {
         );
         return res.sendStatus(500);
       }
+
       console.log("Post Task successful");
       return res
         .setHeader("Content-Type", "application/json")
@@ -162,6 +164,7 @@ router.put("/tasks/:id", (req, res) => {
           );
           return res.sendStatus(500);
         }
+
         console.log("Put Task successful");
         return res
           .setHeader("Content-Type", "application/json")
@@ -213,6 +216,7 @@ router.delete("/tasks/:id", (req, res) => {
           .status(500)
           .json({ message: "An error occurred while writing to the file." });
       }
+
       console.log("Delete Task successful");
       return res
         .setHeader("Content-Type", "application/json")

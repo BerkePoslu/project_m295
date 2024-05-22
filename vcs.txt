@@ -1,0 +1,41 @@
+commit dc49267b4dd1cc90dffd7ce68af38c867e5c5a91
+Author: BerkePoslu <posluberke@gmail.com>
+Date:   Wed May 22 14:44:30 2024 +0200
+
+    chore: refinement in code
+
+commit 3b0b27824090d6a8634788a3efe175e1035f1fa9
+Author: BerkePoslu <posluberke@gmail.com>
+Date:   Wed May 22 13:24:13 2024 +0200
+
+    chore: changed eslintrc
+
+commit 41458139e8efefc5301670c08aa0171064a8e66e
+Author: BerkePoslu <posluberke@gmail.com>
+Date:   Wed May 22 13:23:15 2024 +0200
+
+    chore: added readme
+
+commit f43cb6e7fb761ead3a49f26e43c1742ab1105d7f
+Author: BerkePoslu <posluberke@gmail.com>
+Date:   Wed May 22 13:11:54 2024 +0200
+
+    chore: made dates in locale Europa
+
+commit 78c245d7a7787416926633f15ea0593ad42ff927
+Author: BerkePoslu <posluberke@gmail.com>
+Date:   Wed May 22 13:03:27 2024 +0200
+
+    fix: fixed console.logs
+
+commit 6eaaa482b07e2cfe180227de55a6bcd25571d60e
+Author: BerkePoslu <posluberke@gmail.com>
+Date:   Wed May 22 11:51:29 2024 +0200
+
+    chore: structure changes, eslint and logs
+
+commit 8c4f8f382b27e4e56d9925b585bcdc943b937acb
+Author: BerkePoslu <posluberke@gmail.com>
+Date:   Wed May 22 11:16:28 2024 +0200
+
+    chore: implemented auth, task routes, added server.js, added eslint, added gitignore
