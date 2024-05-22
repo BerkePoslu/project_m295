@@ -1,3 +1,9 @@
+commit 1d281415e2ca259ae8f89e10fbb3238441d2c1d0
+Author: BerkePoslu <posluberke@gmail.com>
+Date:   Wed May 22 14:52:44 2024 +0200
+
+    chore: refinements, eslint
+
 commit dc49267b4dd1cc90dffd7ce68af38c867e5c5a91
 Author: BerkePoslu <posluberke@gmail.com>
 Date:   Wed May 22 14:44:30 2024 +0200

@@ -1,4 +1,4 @@
-# Projekt M295
+# Projekt M295 - Berke Poslu
 
 ## Voraussetzungen
 
