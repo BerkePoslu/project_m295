@@ -55,11 +55,8 @@ router.post("/tasks", (req, res) => {
   const id = crypto.randomUUID();
 
   const creator = req.session.user;
-  console.log(creator);
 
   const { title, description, doneAt } = req.body;
-
-  console.log(req.body);
 
   if (!title) {
     console.log("Post Task failed: Title is required");
@@ -147,7 +144,7 @@ router.put("/tasks/:id", (req, res) => {
           );
           return res.sendStatus(500);
         }
-
+        console.log("Put Task successful");
         return res
           .setHeader("Content-Type", "application/json")
           .status(201)

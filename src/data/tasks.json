@@ -1,6 +1,30 @@
-{
-  "id": "8be6afcd-6dab-4cb4-8330-b0b0c5b3a154",
-  "title": "changed task with put",
-  "description": "changed description of Task 8",
-  "doneAt": "2024-05-22T09:37:48.347Z"
-}
+[
+  {
+    "id": "8be6afcd-6dab-4cb4-8330-b0b0c5b3a154",
+    "title": "very changed task with put",
+    "description": "changed description of Task 8",
+    "doneAt": "2024-05-22T07:44:24.802Z",
+    "creator": "berke@bbw.ch"
+  },
+  {
+    "id": "d9e4e151-4ce1-41a5-8116-9db2198ea44d",
+    "title": "test",
+    "description": "test",
+    "doneAt": null,
+    "creator": "berke@bbw.ch"
+  },
+  {
+    "id": "24c814f8-4313-418f-a504-5227d6add2d6",
+    "title": "test2",
+    "description": "test2",
+    "doneAt": null,
+    "creator": "berke@bbw.ch"
+  },
+  {
+    "id": "9af14dbd-d834-4822-8aab-9ca6f0d36f4d",
+    "title": "test2",
+    "description": "test2",
+    "doneAt": null,
+    "creator": "berke@bbw.ch"
+  }
+]
