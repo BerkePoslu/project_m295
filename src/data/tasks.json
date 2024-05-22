@@ -3,7 +3,7 @@
     "id": "8be6afcd-6dab-4cb4-8330-b0b0c5b3a154",
     "title": "very changed task with put",
     "description": "changed description of Task 8",
-    "doneAt": "2024-05-22T07:44:24.802Z",
+    "doneAt": null,
     "creator": "berke@bbw.ch"
   },
   {
@@ -31,7 +31,7 @@
     "id": "7198b8fe-1ac5-44fc-bcc8-93d81ef618d1",
     "title": "test2",
     "description": "test2",
-    "doneAt": "22.5.2024, 13:11:15",
+    "doneAt": "22.5.2024, 13:12:55",
     "creator": "berke@bbw.ch"
   }
 ]
