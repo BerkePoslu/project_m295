@@ -20,16 +20,19 @@ router.post("/login", async (req, res) => {
 
   if (!authHeader) {
     res.setHeader("WWW-Authenticate", "Basic");
-    return res.status(401).send("Authentication required");
+    console.log("Authentication required (no header)");
+    return res.status(401).send("authentication required");
   }
 
   const [email, password] = decodeHeader(authHeader);
 
   if (!email || !password) {
+    console.log("Invalid input format");
     return res.status(400).send("Invalid input");
   }
 
   if (!email.includes("@") || !email.includes(".")) {
+    console.log("Invalid email format");
     return res.status(400).send("Invalid email");
   }
 
@@ -38,13 +41,10 @@ router.post("/login", async (req, res) => {
   const passwordMatch = await bcrypt.compare(password, storedPasswordHash);
   if (passwordMatch) {
     req.session.user = email;
+    console.log("Logged in as: ", req.session.user);
     return res.status(200).send(req.session);
   }
-
-  res
-    .setHeader("Content-Type", "application/json")
-    .status(401)
-    .json({ message: "Login failed (credentials do not match)" });
+  res.status(401).send("credentials do not match");
 });
 
 router.get("/verify", (req, res) => {
@@ -52,12 +52,13 @@ router.get("/verify", (req, res) => {
   // #swagger.tags = ["Authentication"]¨
   // #swagger.description = "This route verifies if the user is logged in and returns the email of the user if logged in."
   if (req.session.user) {
-    return res.status(200).send({
+    console.log("Verified: Logged in as: ", req.session.user);
+    return res.setHeader("Content-Type", "application/json").status(200).json({
       email: req.session.user,
     });
   }
-
-  return res.status(401).send("Not logged in");
+  console.log("Verified: Not logged in");
+  return res.sendStatus(401);
 });
 
 router.delete("/logout", (req, res) => {
@@ -65,6 +66,7 @@ router.delete("/logout", (req, res) => {
   // #swagger.tags = ["Authentication"]
   // #swagger.description = "This route logs out the user from the server and deletes the session cookie."
   req.session.destroy();
-  res.send("logged out");
+  res.sendStatus(200);
+  console.log("Logged out user");
 });
 module.exports = router;

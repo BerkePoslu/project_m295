@@ -10,9 +10,10 @@ router.get("/tasks", (req, res) => {
   // #swagger.tags = ["Tasks"]
   // #swagger.description = "This route returns all tasks from the tasks.json file."
   if (!req.session.user) {
-    return res.status(401).send("Not logged in");
+    console.log("Get Tasks failed: Not logged in");
+    return res.sendStatus(401);
   }
-
+  console.log("Get Tasks successful");
   res.setHeader("Content-Type", "application/json").status(200).send(tasks);
 });
 
@@ -21,16 +22,19 @@ router.get("/tasks/:id", (req, res) => {
   // #swagger.tags = ["Tasks"]
   // #swagger.description = "This route returns a task by its id from the tasks.json file."
   if (!req.session.user) {
-    return res.status(401).json({ message: "Not logged in" });
+    console.log("Get Task failed: Not logged in");
+    return res.sendStatus(401);
   }
 
   const { id } = req.params;
   const findArray = tasks.find((element) => element.id === id);
 
   if (!findArray) {
-    return res.status(404).send("Task not found");
+    console.log("Get Task failed: Task not found");
+    return res.sendStatus(404);
   }
 
+  console.log("Get Task successful");
   res.setHeader("Content-Type", "application/json").send(findArray);
 });
 
@@ -39,11 +43,13 @@ router.post("/tasks", (req, res) => {
   // #swagger.tags = ["Tasks"]
   // #swagger.description = "This route creates a task and adds it to the tasks.json file. If the user is not logged in, a 401 status code is returned."
   if (!req.session.user) {
-    return res.status(401).json({ message: "Not logged in" });
+    console.log("Post Task failed: Not logged in");
+    return res.sendStatus(401);
   }
 
   if (!req.body) {
-    return res.status(400).send("No task data provided");
+    console.log("Post Task failed: No task data provided");
+    return res.sendStatus(400);
   }
 
   const id = crypto.randomUUID();
@@ -56,7 +62,8 @@ router.post("/tasks", (req, res) => {
   console.log(req.body);
 
   if (!title) {
-    return res.status(422).json({ message: "Title is required" });
+    console.log("Post Task failed: Title is required");
+    return res.sendStatus(422);
   }
 
   const allowedFields = ["title", "description", "doneAt"];
@@ -64,9 +71,8 @@ router.post("/tasks", (req, res) => {
     (key) => !allowedFields.includes(key)
   );
   if (additionalFields.length > 0) {
-    return res
-      .status(422)
-      .send(`Prohibited fields found: ${additionalFields.join(", ")}`);
+    console.log("Post Task failed: Prohibited fields found");
+    return res.sendStatus(422);
   }
 
   const postArray = [
@@ -86,12 +92,12 @@ router.post("/tasks", (req, res) => {
     JSON.stringify(tasks, null, 2),
     (err) => {
       if (err) {
-        console.error(err);
-        return res
-          .status(500)
-          .send("An error occurred while writing to the file.");
+        console.log(
+          "Post Task failed: An error occurred while writing to the file."
+        );
+        return res.sendStatus(500);
       }
-
+      console.log("Post Task successful");
       return res
         .setHeader("Content-Type", "application/json")
         .status(201)
@@ -105,11 +111,11 @@ router.put("/tasks/:id", (req, res) => {
   // #swagger.tags = ["Tasks"]
   // #swagger.description = "This route updates a task by its id from the tasks.json file. If the user is not logged in, a 401 status code is returned."
   if (!req.session.user) {
-    return res.status(401).json({ message: "Not logged in" });
+    console.log("Put Task failed: Not logged in");
+    return res.sendStatus(401);
   }
 
   const { id } = req.params;
-  const creator = req.body.user;
   const taskIndex = tasks.findIndex((element) => element.id === id);
 
   // eslint-disable-next-line no-negated-condition
@@ -119,22 +125,27 @@ router.put("/tasks/:id", (req, res) => {
       (key) => !allowedFields.includes(key)
     );
     if (additionalFields.length > 0) {
-      return res
-        .status(422)
-        .send(`Prohibited fields found: ${additionalFields.join(", ")}`);
+      console.log("Put Task failed: Prohibited fields found");
+      return res.sendStatus(422);
     }
 
-    tasks[taskIndex] = { ...tasks[taskIndex], ...req.body, creator };
+    tasks[taskIndex] = {
+      ...tasks[taskIndex],
+      title: req.body.title,
+      description: req.body.description,
+      doneAt: req.body.doneAt,
+      creator: req.session.user,
+    };
 
     fs.writeFile(
       path.join(__dirname, "../data/tasks.json"),
       JSON.stringify(tasks, null, 2),
       (err) => {
         if (err) {
-          console.error(err);
-          return res
-            .status(500)
-            .send("An error occurred while writing to the file.");
+          console.log(
+            "Post Task failed: An error occurred while writing to the file."
+          );
+          return res.sendStatus(500);
         }
 
         return res
@@ -144,7 +155,7 @@ router.put("/tasks/:id", (req, res) => {
       }
     );
   } else {
-    res.status(404).send("No task found!");
+    res.sendStatus(404);
   }
 });
 
@@ -153,6 +164,7 @@ router.delete("/tasks/:id", (req, res) => {
   // #swagger.tags = ["Lends"]
   // #swagger.description = "This route deletes a lend by its id from the lend.json file. If the user is not logged in, a 401 status code is returned."
   if (!req.session.user) {
+    console.log("Delete Task failed: Not logged in");
     return res.status(401).json({ message: "Not logged in" });
   }
 
@@ -160,6 +172,7 @@ router.delete("/tasks/:id", (req, res) => {
 
   const findArray = tasks.find((element) => element.id === id);
   if (!findArray) {
+    console.log("Delete Task failed: Task not found");
     return res.status(404).send("Task not found");
   }
 
@@ -175,12 +188,15 @@ router.delete("/tasks/:id", (req, res) => {
     JSON.stringify(tasks, null, 2),
     (err) => {
       if (err) {
-        console.error(err);
+        console.log(
+          "Delete Task failed: An error occurred while writing to the file."
+        );
         return res
+          .setHeader("Content-Type", "application/json")
           .status(500)
-          .send("An error occurred while writing to the file.");
+          .json({ message: "An error occurred while writing to the file." });
       }
-
+      console.log("Delete Task successful");
       return res
         .setHeader("Content-Type", "application/json")
         .status(201)
